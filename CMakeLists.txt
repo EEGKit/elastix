@@ -81,6 +81,13 @@ include(elastixExportTarget)
 
 if (MSVC)
   add_compile_options(/W3)
+else()
+  add_compile_options(
+    -Wdeprecated-declarations
+    -Woverloaded-virtual
+    -Wshadow
+    -Wunused-parameter
+    )
 endif()
 
 #---------------------------------------------------------------------
