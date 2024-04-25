@@ -600,9 +600,16 @@ private:
 
   MovingImageDerivativeScalesType m_MovingImageDerivativeScales{ MovingImageDerivativeScalesType::Filled(1.0) };
 
-  // Private `using` declarations, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
-  using Superclass::GetTransform;
+  // Private `using` declaration, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
   using Superclass::SetTransform;
+
+  /** Non-const override of GetTransform(). Declared `private`, as it appears unnecessary in practice. It's only there
+   * to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4. */
+  AdvancedTransformType *
+  GetTransform() override
+  {
+    return m_AdvancedTransform.GetPointer();
+  }
 
   // Prevent accidentally calling SetFixedImageMask or SetMovingImageMask through the ITK ImageToImageMetric interface.
   void
