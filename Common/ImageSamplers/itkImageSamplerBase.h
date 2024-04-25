@@ -255,8 +255,9 @@ protected:
   bool m_UseMultiThread{ true };
 
 private:
-  // Private `using` declaration, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
+  // Private `using` declarations, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
   using ProcessObject::MakeOutput;
+  using ProcessObject::SetInput;
 
   /** Member variables. */
   MaskConstPointer           m_Mask{ nullptr };
