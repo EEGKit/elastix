@@ -158,6 +158,7 @@ public:
 
   /** Smart Pointer type to a DataObject. */
   using DataObjectPointer = typename DataObject::Pointer;
+  using typename Superclass::DataObjectPointerArraySizeType;
 
   /** Method that initiates the registration. */
   virtual void
@@ -233,8 +234,8 @@ public:
   /** Make a DataObject of the correct type to be used as the specified
    * output.
    */
-  virtual DataObjectPointer
-  MakeOutput(unsigned int idx);
+  DataObjectPointer
+  MakeOutput(DataObjectPointerArraySizeType idx) override;
 
   /** Method to return the latest modified time of this object or
    * any of its cached ivars.
@@ -281,6 +282,9 @@ protected:
   bool           m_Stop{};
 
 private:
+  // Private `using` declaration, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
+  using Superclass::MakeOutput;
+
   /** Member variables. */
   MetricPointer          m_Metric{};
   OptimizerType::Pointer m_Optimizer{};

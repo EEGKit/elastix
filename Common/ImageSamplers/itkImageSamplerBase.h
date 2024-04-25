@@ -59,6 +59,7 @@ public:
 
   /** Typedefs inherited from the superclass. */
   using typename Superclass::DataObjectPointer;
+  using typename Superclass::DataObjectPointerArraySizeType;
   using typename Superclass::OutputVectorContainerType;
   using typename Superclass::OutputVectorContainerPointer;
 
@@ -89,7 +90,7 @@ public:
 
   /** Create a valid output. */
   DataObject::Pointer
-  MakeOutput(unsigned int idx) override;
+  MakeOutput(DataObjectPointerArraySizeType idx) override;
 
   /** Set the input image of this process object.  */
   void
@@ -254,6 +255,9 @@ protected:
   bool m_UseMultiThread{ true };
 
 private:
+  // Private `using` declaration, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
+  using ProcessObject::MakeOutput;
+
   /** Member variables. */
   MaskConstPointer           m_Mask{ nullptr };
   MaskVectorType             m_MaskVector{};

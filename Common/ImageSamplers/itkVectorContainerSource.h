@@ -48,6 +48,7 @@ public:
 
   /** Some convenient typedefs. */
   using typename Superclass::DataObjectPointer;
+  using typename Superclass::DataObjectPointerArraySizeType;
   using OutputVectorContainerType = TOutputVectorContainer;
   using OutputVectorContainerPointer = typename OutputVectorContainerType::Pointer;
 
@@ -68,8 +69,8 @@ public:
   GraftNthOutput(unsigned int idx, DataObject * output);
 
   /** Make a DataObject of the correct type to used as the specified output. */
-  virtual DataObjectPointer
-  MakeOutput(unsigned int idx);
+  DataObjectPointer
+  MakeOutput(DataObjectPointerArraySizeType idx) override;
 
 protected:
   /** The constructor. */
@@ -82,6 +83,9 @@ protected:
   PrintSelf(std::ostream & os, Indent indent) const override;
 
 private:
+  // Private `using` declaration, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
+  using Superclass::MakeOutput;
+
   /** Member variables. */
   int m_GenerateDataRegion{};
   int m_GenerateDataNumberOfRegions{};
