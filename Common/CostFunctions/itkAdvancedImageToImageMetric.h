@@ -600,8 +600,9 @@ private:
 
   MovingImageDerivativeScalesType m_MovingImageDerivativeScales{ MovingImageDerivativeScalesType::Filled(1.0) };
 
-  // Private `using` declaration, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
+  // Private `using` declarations, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
   using Superclass::SetTransform;
+  using Superclass::TransformPoint;
 
   /** Non-const override of GetTransform(). Declared `private`, as it appears unnecessary in practice. It's only there
    * to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4. */
