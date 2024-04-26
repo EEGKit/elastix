@@ -73,6 +73,9 @@ public:
   MakeOutput(DataObjectPointerArraySizeType idx) override;
 
 protected:
+  // Protected `using` declaration, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
+  using ProcessObject::MakeOutput;
+
   /** The constructor. */
   VectorContainerSource();
   /** The destructor. */
@@ -83,9 +86,6 @@ protected:
   PrintSelf(std::ostream & os, Indent indent) const override;
 
 private:
-  // Private `using` declaration, to avoid warnings like "'...' was hidden [-Woverloaded-virtual]", from GCC 11.4.
-  using Superclass::MakeOutput;
-
   /** Member variables. */
   int m_GenerateDataRegion{};
   int m_GenerateDataNumberOfRegions{};
