@@ -170,25 +170,7 @@ template <typename TInputImage, bool doDilate, typename TOutputImage>
 void
 ParabolicErodeDilateImageFilter<TInputImage, doDilate, TOutputImage>::GenerateData()
 {
-
-  typename TInputImage::ConstPointer inputImage(this->GetInput());
-  typename TOutputImage::Pointer     outputImage(this->GetOutput());
-
-  // const unsigned int imageDimension = inputImage->GetImageDimension();
-  outputImage->SetBufferedRegion(outputImage->GetRequestedRegion());
-  outputImage->Allocate();
-  // Set up the multithreaded processing
-  typename ImageSource<TOutputImage>::ThreadStruct str;
-  str.Filter = this;
-  this->GetMultiThreader()->SetNumberOfWorkUnits(this->GetNumberOfWorkUnits());
-  this->GetMultiThreader()->SetSingleMethod(this->ThreaderCallback, &str);
-
-  // multithread the execution
-  for (unsigned int d = 0; d < ImageDimension; ++d)
-  {
-    m_CurrentDimension = d;
-    this->GetMultiThreader()->SingleMethodExecute();
-  }
+  itkExceptionMacro("Removed implementation!");
 }
 
 
