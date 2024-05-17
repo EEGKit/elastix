@@ -157,6 +157,7 @@ template <class TElastix>
 void
 ConjugateGradientFRPR<TElastix>::AfterEachIteration()
 {
+  itkExceptionMacro("Check if we get here! CurrentSearchDirectionMagnitude = " << m_CurrentSearchDirectionMagnitude);
 
   /** Print some information. */
   this->GetIterationInfoAt("1a:SrchDirNr") << this->GetCurrentIteration();
