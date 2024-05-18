@@ -202,6 +202,7 @@ protected:
                         double * extX,
                         double * extVal) override;
 
+private:
   /**
    * store the line search direction's (xi) magnitude and call the superclass'
    * implementation.
@@ -209,7 +210,12 @@ protected:
   void
   LineOptimize(ParametersType * p, ParametersType & xi, double * val) override;
 
-private:
+  void
+  LineOptimize(ParametersType * p, ParametersType & xi, double * val, ParametersType & tempCoord) override
+  {
+    itkExceptionMacro("Check if we get here! Overriding with tempCoord!");
+  }
+
   elxOverrideGetSelfMacro;
 
   bool m_LineOptimizing;

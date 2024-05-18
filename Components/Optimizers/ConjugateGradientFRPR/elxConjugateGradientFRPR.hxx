@@ -364,8 +364,7 @@ template <class TElastix>
 void
 ConjugateGradientFRPR<TElastix>::LineOptimize(ParametersType * p, ParametersType & xi, double * val)
 {
-  this->m_CurrentSearchDirectionMagnitude = xi.magnitude();
-  this->Superclass1::LineOptimize(p, xi, val);
+  itkExceptionMacro("Check if we get here! Overriding!");
 } // end LineOptimize
 
 
