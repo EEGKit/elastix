@@ -124,6 +124,15 @@ EulerStackTransform<TElastix>::ReadFromFile()
 
     m_DummySubTransform->SetCenter(RDcenterOfRotationPoint);
 
+    if constexpr (ReducedSpaceDimension == 3)
+    {
+      // For 3D images, retrieve the ComputeZYX (default is false).
+      if (configuration.RetrieveParameterValue(false, "ComputeZYX", 0, false))
+      {
+        m_DummySubTransform->SetComputeZYX(true);
+      }
+    }
+
     /** Set stack transform parameters. */
     m_StackTransform->SetNumberOfSubTransforms(m_NumberOfSubTransforms);
     m_StackTransform->SetStackOrigin(m_StackOrigin);
@@ -149,10 +158,19 @@ EulerStackTransform<TElastix>::CreateDerivedTransformParameterMap() const -> Par
 {
   const auto & itkTransform = *m_StackTransform;
 
-  return { { "CenterOfRotationPoint", Conversion::ToVectorOfStrings(m_DummySubTransform->GetCenter()) },
-           { "StackSpacing", { Conversion::ToString(itkTransform.GetStackSpacing()) } },
-           { "StackOrigin", { Conversion::ToString(itkTransform.GetStackOrigin()) } },
-           { "NumberOfSubTransforms", { Conversion::ToString(itkTransform.GetNumberOfSubTransforms()) } } };
+  ParameterMapType parameterMap{
+    { "CenterOfRotationPoint", Conversion::ToVectorOfStrings(m_DummySubTransform->GetCenter()) },
+    { "StackSpacing", { Conversion::ToString(itkTransform.GetStackSpacing()) } },
+    { "StackOrigin", { Conversion::ToString(itkTransform.GetStackOrigin()) } },
+    { "NumberOfSubTransforms", { Conversion::ToString(itkTransform.GetNumberOfSubTransforms()) } }
+  };
+
+  if constexpr (ReducedSpaceDimension == 3)
+  {
+    parameterMap["ComputeZYX"] = { Conversion::ToString(m_DummySubTransform->GetComputeZYX()) };
+  }
+
+  return parameterMap;
 
 } // end CreateDerivedTransformParameterMap()
 
